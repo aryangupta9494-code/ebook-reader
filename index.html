@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Epub Reader</title>
+  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+  <style>
+    body { margin: 0; }
+    #viewer { height: 100vh; }
+  </style>
+</head>
+<body>
+
+<div id="viewer"></div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const bookUrl = urlParams.get('file');
+
+var book = ePub(bookUrl);
+var rendition = book.renderTo("viewer", {
+  width: "100%",
+  height: "100%"
+});
+
+rendition.display();
+</script>
+
+</body>
+</html>
