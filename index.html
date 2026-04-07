@@ -52,7 +52,9 @@
     alert("No book file provided in URL");
   }
 
-  var book = ePub(bookUrl);
+  var proxiedUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(bookUrl);
+
+var book = ePub(proxiedUrl);
 
   var rendition = book.renderTo("viewer", {
     width: "100%",
