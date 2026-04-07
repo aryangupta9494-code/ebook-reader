@@ -3,27 +3,71 @@
 <head>
   <meta charset="utf-8">
   <title>Epub Reader</title>
+
+  <!-- EPUB.js -->
   <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+
   <style>
-    body { margin: 0; }
-    #viewer { height: 100vh; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #viewer {
+      height: 90vh;
+      width: 100%;
+    }
+
+    #controls {
+      height: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      background: #f2f2f2;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
 
 <div id="viewer"></div>
 
+<div id="controls">
+  <button onclick="prevPage()">⬅ Prev</button>
+  <button onclick="nextPage()">Next ➡</button>
+</div>
+
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const bookUrl = urlParams.get('file');
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookUrl = urlParams.get('file');
 
-var book = ePub(bookUrl);
-var rendition = book.renderTo("viewer", {
-  width: "100%",
-  height: "100%"
-});
+  if (!bookUrl) {
+    alert("No book file provided in URL");
+  }
 
-rendition.display();
+  var book = ePub(bookUrl);
+
+  var rendition = book.renderTo("viewer", {
+    width: "100%",
+    height: "100%"
+  });
+
+  rendition.display();
+
+  function nextPage() {
+    rendition.next();
+  }
+
+  function prevPage() {
+    rendition.prev();
+  }
 </script>
 
 </body>
